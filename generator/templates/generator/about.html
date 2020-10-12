@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<head>
+	<title></title>
+	<style>
+		body {
+			padding: 30px;
+		}
+
+		input, select {
+			padding: 12px 20px;
+			margin: 8px 0;
+			box-sizing: border-box;
+		}
+
+		label {
+			font-size: 18px;
+			padding: 12px 12px 12px 0;
+			display: inline-block;
+		}
+
+		button {
+			color: #fff;
+			font-size: 14px;
+			background: #2B7DE9;
+			border: none;
+			display: inline-block;
+			padding: 14px 20px;
+			vertical-align: middle;
+		}
+
+	</style>        
+</head>
+<body>
+<div class = 'container text-center'>
+	<form id="formValidation">
+		<label for="name">Name: </label>
+		<input type="text" name="name" id="name" placeholder="Enter your name" /> <br/><br/>
+
+		<label for="gender">Gender: </label>
+		<input type="radio" id="male" name="gender" value="male"> <label for="male">Male</label>
+		<input type="radio" id="female" name="gender" value="female"> <label for="male">Female</label> <br/><br/>
+
+		<label for="dob">Date of Birth: </label>
+		<input type="date" name="dob" /> <br/><br/>
+
+		<label for="admission_to">Admission to: </label>
+		<select name="admission_to" id="admission_to">
+			<option selected>Select your class</option>
+			<option value="25000">XI Sci</option>
+			<option value="25000">XII Sci</option>
+			<option value="22000">XI Com</option>
+			<option value="22000">XII Com</option>
+			<option value="20000">XI Art</option>
+			<option value="20000">XII Art</option>
+		</select> <br/><br/>
+
+		<label for="admission_type">Type of Admission: </label>
+		<input type="checkbox" id="boarder" name="boarder" value="boarder">
+		<label for="boading"> Boarding</label>
+		<input type="checkbox" id="dayscholar" name="dayscholar" value="dayscholar">
+		<label for="dayscholar"> Dayscholar</label> <br/><br/>
+
+		<label for="name">Cost of admission: </label>
+		<input type="number" name="admission_cost" id="admission_cost" /> <br/><br/>
+
+	</form>
+
+	<button type="submit" onclick="cost()">Total</button>
+	<button type="submit" onclick="validate()">Submit</button>
+	<button type="reset" onclick="reset()">Reset</button>
+</div>
+<script>
+    // Name validation code.
+    function validate() {
+    	
+    	// Get the value of the input field with id="name" and store it in student_variable
+    	var student_name = document.getElementById("name").value;
+
+    	// Name cannot be blank
+    	if(student_name == "" ) {
+    		alert("Name field cannot be left blank");
+    	}
+
+    	// Name cannot be numeric
+    	else if (student_name <= 1 || student_name >= 1) {
+		    alert("Name field cannot have number");
+		}
+    }
+
+    // Cost calculation code.
+    function cost() {
+    	// must select between boarder or dayscholar
+    	if(!this.boarder.checked && !this.dayscholar.checked) {
+    		alert("Select either Boarder of Dayscholar");
+    	}
+
+    	// cannot select boarder and dayscholar at once
+    	else if(this.boarder.checked && this.dayscholar.checked) {
+    		alert("You cannot choose both Boarder and Dayscholar! Choose one option");
+    	}
+
+    	else {
+    		if(this.boarder.checked) {
+    			var admission_cost = parseInt(document.getElementById("admission_to").value);
+    			var total_fee = admission_cost + 15000
+    			document.getElementById("admission_cost").value = total_fee;
+    		}
+
+    		else {
+    			var admission_cost = document.getElementById("admission_to").value;
+    			document.getElementById("admission_cost").value = admission_cost;
+    		}
+    	}
+    }
+    function reset(){
+    	document.forms["formValidation"].reset();
+    }
+</script>
+</body>
+<a href = {% url 'home'%}> home </a>
+</html> 
